@@ -15,13 +15,14 @@ Welcome to GameVerse, the ultimate gaming platform designed to deliver immersive
 
 ### Day 1: Project Ideation and Planning (Timeline: 4 hours)
 
-- Set up the project repository on GitHub, organizing folders for frontend and backend components.
+- Set up the project repository on GitHub.
 - Define project requirements, architecture, and feature specifications.
 - Draft a README file outlining available features and project details.
 
 ### Day 2: Making Wireframing and UI Design (Timeline: 6 hours)
 
 - Create detailed wireframes for all major pages, capturing layout and user flow.
+- Organizing folders for frontend and backend components.
 - Initiate design of the homepage and template selection interface, focusing on aesthetics and usability.
 - Identify primary color schemes and design elements for consistency.
 - Begin low-fidelity design phase to establish basic UI structure.
