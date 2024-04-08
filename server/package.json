@@ -1,0 +1,32 @@
+{
+  "name": "gameverse-backend",
+  "version": "1.0.0",
+  "description": "The ultimate gaming platform designed to deliver immersive experiences and endless adventures.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kalviumcommunity/S54_Shivangi_Capstone_GameVerse.git"
+  },
+  "author": {
+    "name": "Shivangi Jain",
+    "email": "myselfshivangi08@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/S54_Shivangi_Capstone_GameVerse/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/S54_Shivangi_Capstone_GameVerse#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
