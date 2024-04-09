@@ -11,6 +11,10 @@ Welcome to GameVerse, the ultimate gaming platform designed to deliver immersive
 - **Leaderboards and Social Features:** Compete for the top spot on leaderboards, connect with friends, and share your gaming achievements.
 - **Advanced Backend Functionality:** Utilize a suite of robust RESTful APIs powered by Express.js to manage game data, user profiles, and real-time communication channels.
 
+## Deployed Link
+
+- [BACKEND ON VERCEL](https://game-verse-server.vercel.app/)
+
 ## Day-by-Day Plan (*Tentative*)
 
 ### Day 1: Project Ideation and Planning (Timeline: 4 hours)
