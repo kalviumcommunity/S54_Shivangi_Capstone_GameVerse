@@ -24,10 +24,14 @@ connectToDB()
         console.error('Failed to connect to MongoDB', err);
     });
 
-app.get('/', (req, res) => {
+app.get('/check', (req, res) => {
     const isConnected = mongoose.connection.readyState === 1;
     res.send(`Database Connection Status: ${isConnected ? 'Connected' : 'Disconnected'}`);
 });
+
+app.get("/", (req, res)=>{
+    res.send("Welcome To GameVerse")
+})
 
 
 app.listen(port, () => {
