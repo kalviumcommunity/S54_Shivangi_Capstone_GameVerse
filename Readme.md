@@ -14,6 +14,7 @@ Welcome to GameVerse, the ultimate gaming platform designed to deliver immersive
 ## Deployed Link
 
 - [BACKEND ON VERCEL](https://game-verse-server.vercel.app/)
+- [FRONTEND ON VERCEL](https://game-verse-iota.vercel.app/)
 
 ## Day-by-Day Plan (*Tentative*)
 
