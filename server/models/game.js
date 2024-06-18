@@ -5,8 +5,8 @@ const gameSchema = new mongoose.Schema({
     description: { type: String },
     image_url : { type: String, required: true },
     iframe_url: { type: String, required: true },
-    category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'GameCategory' },
-    category: { type: String }
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'GameCategory' },
+    // category: { type: String }
 });
 
 const Game = mongoose.model('Game', gameSchema);
