@@ -5,7 +5,16 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/api/users/signup
-  body: none
+  url: https://game-verse-server.vercel.app/api/users/signup
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "userName": "abcd",
+    "email": "abcd@ha.com",
+    "name": "dsfdude",
+    "password": "qwerty"
+  }
 }
