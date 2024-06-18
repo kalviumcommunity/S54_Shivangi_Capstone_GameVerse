@@ -1,4 +1,4 @@
-const User = require('../models/userModel');
+const User = require('../models/user');
 const crypto = require('crypto')
 require('dotenv').config()
 
