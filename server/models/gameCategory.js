@@ -6,7 +6,5 @@ const gameCategorySchema = new mongoose.Schema({
     image_url: { type: String, required: true }
 });
 
-module.exports = mongoose.model('GameCategory', gameCategorySchema);
-
 const GameCategory = mongoose.model('GameCategory', gameCategorySchema);
 module.exports = GameCategory;
