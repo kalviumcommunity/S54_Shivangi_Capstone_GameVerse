@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 
 const gameCategorySchema = new mongoose.Schema({
     name: { type: String, required: true },
-    description: { type: String }
+    description: { type: String },
+    image_url: { type: String, required: true }
 });
 
 module.exports = mongoose.model('GameCategory', gameCategorySchema);
