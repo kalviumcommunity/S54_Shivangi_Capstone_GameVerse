@@ -1,14 +1,14 @@
 const User = require('../models/user');
 const crypto = require('crypto')
-require('dotenv').config()
+require('dotenv').config({path: "../.env"})
 
 const createUser = async (req, res) => {
     try {
-        const { userName, name, email, password } = req.body;
+        const { username, name, email, password } = req.body;
         const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
-        const user = await User.find({ $or: [{ userName: userName }, { email: email }] });
+        const user = await User.find({ $or: [{ username: username }, { email: email }] });
         if (user.length == 0) {
-            const newUser = new User({ userName: userName, name: name, email: email, password: hashedPassword });
+            const newUser = new User({ username: username, name: name, email: email, password: hashedPassword });
             await newUser.save();
             res.status(201).json({ message: "User created successfully", data: newUser });
 
@@ -33,9 +33,9 @@ const getAllUsers = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const { userName, password } = req.body;
+        const { username, password } = req.body;
         const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
-        const user = await User.find({ userName: userName, password: hashedPassword });
+        const user = await User.find({ username: username, password: hashedPassword });
         if (user.length) {
             res.status(200).json({ message: "Login successful", data: user });
         } else {
