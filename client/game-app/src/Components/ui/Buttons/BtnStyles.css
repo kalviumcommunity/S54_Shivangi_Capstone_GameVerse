@@ -1,0 +1,28 @@
+.fill-btn {
+    background-size: cover;
+    display: flex;
+    padding: 11px 33px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: white;
+    transition: 1s;
+    transform: skewX(-15deg);
+    border: none;
+    margin-top: 8px;
+    box-shadow: 6px 6px  rgba(255, 255, 255, 0.2);
+  }
+  
+  .fill-btn:focus {
+    outline: none;
+  }
+  
+  .fill-btn:hover {
+    transition: 0.5s;
+    box-shadow: 10px 10px 10px #FFF;
+  }
+  
+  .btn-span {
+    transform: skewX(15deg);
+  }
+  

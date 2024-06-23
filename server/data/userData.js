@@ -8,9 +8,9 @@ async function seedUsers() {
 
     // Dummy users
     const users = [
-      { username: 'user1', email: 'user1@example.com', password: 'password1' },
-      { username: 'user2', email: 'user2@example.com', password: 'password2' },
-      { username: 'user3', email: 'user3@example.com', password: 'password3' },
+      { username: 'user1', name: "person1",email: 'user1@example.com', password: 'password1' },
+      { username: 'user2', name: "person2",email: 'user2@example.com', password: 'password2' },
+      { username: 'user3', name: "person3",email: 'user3@example.com', password: 'password3' },
       // Add more users as needed
     ];
 

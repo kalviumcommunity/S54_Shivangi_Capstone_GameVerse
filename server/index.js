@@ -13,11 +13,17 @@ require('dotenv').config();
 app.use(cors({
     origin: ['http://localhost:5173'],
     methods: 'GET, POST, PATCH, PUT, DELETE',
-    allowedHeaders: 'Content-Type, Authorization',
+    allowedHeaders: 'Content-Type, Authorization, X-Additional-Info',
     credentials: true,
 }));
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Additional-Info');
+    next();
+})
 
 connectToDB()
     .then(() => {
@@ -32,7 +38,7 @@ app.get('/check', (req, res) => {
     res.send(`Database Connection Status: ${isConnected ? 'Connected' : 'Disconnected'}`);
 });
 
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
     res.send("Welcome To GameVerse")
 })
 
