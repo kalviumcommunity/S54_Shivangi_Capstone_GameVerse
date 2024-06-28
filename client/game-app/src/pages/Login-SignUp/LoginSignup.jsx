@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainBg from "../../assets/mainBg.png";
 import LoginBg from "../../assets/LoginImg.png";
 import "./LoginSignUpStyles.css";
@@ -11,12 +11,31 @@ import "react-toastify/dist/ReactToastify.css";
 
 const LoginSignup = () => {
   const [currPage, setCurrPage] = useState("signup");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      console.log("Window width:", window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div style={{ backgroundImage: `url(${MainBg})` }} className="main">
       <NavBar />
-      <div className="main min-h-screen ls-content flex justify-center items-center flex-wrap">
-        <img src={LoginBg} className="left-image" alt="Login Background" />
-        <div className="ls-right">
+      <div className="main min-h-screen ls-content flex justify-center items-center flex-wrap flex-col md:flex-row">
+        <img 
+          src={LoginBg} 
+          className={windowWidth < 600 ? "left-image-res" : "left-image"} 
+          alt="Login Background"
+        />
+        <div className={windowWidth < 786 ? "ls-right-res" : "ls-right"} >
           <div className="mt-4">
             <div className="border-b border-gray-200">
               <nav className="-mb-px flex" aria-label="Tabs">
