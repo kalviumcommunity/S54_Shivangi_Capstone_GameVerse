@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from "react-toastify";
-import axios from "axios";
+import axios from "../../utils/axiosConfig";
 import { LoginContext } from "../../Context/LoginContext";
 import FilledBtn from "../../Components/ui/Buttons/FilledBtn";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,9 +20,8 @@ const Login = () => {
         username,
         password,
       });
-      // Handle successful login
+      localStorage.setItem("token", response.data.token); // Save token
       setIsLoggedIn(true);
-      console.log(response.data.message);
       toast.success(response.data.message, {
         position: "top-center",
         autoClose: 3000,
@@ -38,8 +37,6 @@ const Login = () => {
           navigate("/");
         },
       });
-
-      // navigate("/");
     } catch (error) {
       console.log("Error:", error.response.data.message);
       toast.error(error.response.data.message, {

@@ -23,8 +23,8 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${url}/api/users/signup`, formData);
+      localStorage.setItem("token", response.data.token); // Save token
       setIsLoggedIn(true);
-      console.log("SignUp successful");
       toast.success(response.data.message, {
         position: "top-center",
         autoClose: 3000,
@@ -40,7 +40,6 @@ const SignUp = () => {
           navigate("/");
         },
       });
-      
     } catch (error) {
       console.error("Error:", error);
       toast.error(error.response.data.message, {
@@ -53,7 +52,6 @@ const SignUp = () => {
         progress: undefined,
         theme: "dark",
         transition: Bounce,
-    
       });
     }
   };
