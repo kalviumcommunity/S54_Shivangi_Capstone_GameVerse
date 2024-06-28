@@ -4,7 +4,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import axios from "axios";
 import { LoginContext } from "../../Context/LoginContext";
 import FilledBtn from "../../Components/ui/Buttons/FilledBtn";
-import "react-toastify/dist/ReactToastify.css"; // Ensure you import the CSS for react-toastify
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const url = import.meta.env.VITE_API_URL;

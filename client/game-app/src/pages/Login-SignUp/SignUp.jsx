@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import SignupBg from "../../assets/mainBg.png";
 import FilledBtn from "../../Components/ui/Buttons/FilledBtn";
 import { LoginContext } from "../../Context/LoginContext";
 import { ToastContainer, toast, Bounce } from "react-toastify";

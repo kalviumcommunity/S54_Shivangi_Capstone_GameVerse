@@ -1,0 +1,31 @@
+.text-fill-color {
+  background-image: url("./assets/colorStyle.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+@font-face {
+  font-family: OndoBold;
+  src: url(./assets/fonts/Ondo_Bold.ttf);
+}
+@font-face {
+  font-family: OndoMed;
+  src: url(./assets/fonts/Ondo_Medium.ttf);
+}
+@font-face {
+  font-family: OndoReg;
+  src: url(./assets/fonts//Ondo_Regular.ttf);
+}
+
+@font-face {
+    font-family: Lato;
+    src: url(./assets/fonts/Lato-Regular.ttf);
+}
+
+.text-white{
+    color: white;
+}

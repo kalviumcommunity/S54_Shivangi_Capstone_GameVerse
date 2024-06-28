@@ -1,5 +1,27 @@
 .center-img{
-    mix-blend-mode: lighten;
+    mix-blend-mode:lighten;
     width: 80%;
+    margin: auto;
 }
 
+.home-content{
+    background-size: cover;
+}
+
+.home-main-heading{
+    color: white;
+    margin: auto;
+    text-align: center;
+    font-size: 52px;
+    font-weight: 600;
+    font-family: OndoBold;
+}
+
+.page-br{
+    min-width: 1400px;
+    margin: 50px auto;
+}
+
+.home-lato{
+    font-family: Lato;
+}

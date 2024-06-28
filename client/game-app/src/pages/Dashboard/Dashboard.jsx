@@ -8,7 +8,6 @@ const Dashboard = () => {
         className="main min-h-screen ls-content"
         style={{ backgroundImage: `url(${MainBg})` }}
       >
-        {/* <img src={} className="left-image" alt="Login Background" /> */}
       </div>
     </>
   );
