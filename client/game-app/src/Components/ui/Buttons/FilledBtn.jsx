@@ -1,5 +1,4 @@
 import React from "react";
-import BtnFill from "../../../assets/button-filled.png";
 import BtnBg from "../../../assets/colorStyle.jpg";
 import "./BtnStyles.css";
 

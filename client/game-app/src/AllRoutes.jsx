@@ -14,7 +14,7 @@ const AllRoutes = () => {
     <Routes>
       <Route path="/" element={isLoggedIn ? <Dashboard /> : <Home />} />
       <Route path="/login" element={<LoginSignup />} />
-      <Route path="/check" element={<FilledBtn value="view-all"/>} />
+      <Route path="/test" element={<FilledBtn value="view-all"/>} />
     </Routes>
   );
 };

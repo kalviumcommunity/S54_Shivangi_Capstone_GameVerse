@@ -10,7 +10,8 @@
     transform: skewX(-15deg);
     border: none;
     margin-top: 8px;
-    box-shadow: 6px 6px  rgba(255, 255, 255, 0.2);
+    /* box-shadow: 6px 6px  rgba(255, 255, 255, 0.2); */
+    /* text-align: center; */
   }
   
   .fill-btn:focus {
@@ -19,10 +20,16 @@
   
   .fill-btn:hover {
     transition: 0.5s;
-    box-shadow: 10px 10px 10px #FFF;
+    /* box-shadow: 10px 10px 10px #FFF; */
   }
   
   .btn-span {
     transform: skewX(15deg);
+    /* text-align: center; */
+    margin: auto;
   }
+/* 
+  .outline-btn{
+    border-image: ;
+  } */
   

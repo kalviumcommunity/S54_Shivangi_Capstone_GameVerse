@@ -1,23 +1,17 @@
 .main {
-  background-size: 100%;
-  height: 100vh;
+  background-size: 100% 100%;
 }
-
-/* .ls-content {
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
 .left-image {
   height: 85%;
+  max-height: 85vh;
   z-index: 1;
 }
 
 .ls-right {
   margin-left: -20px;
   height: 73%;
+  min-height: 70vh;
   width: 30.9%;
   background: rgba(255, 255, 255, 0.101);
   box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.214);
@@ -25,7 +19,6 @@
   -webkit-backdrop-filter: blur(2px);
   border-radius: 0 10px 10px 0;
   border: 2px solid rgba(255, 255, 255, 0.415);
-  /* border-radius: 0px 10px 10px 0; */
 }
 
 .form-fields {
@@ -87,7 +80,6 @@
   font-weight: 700;
 }
 
-/* reset input */
 .form-input:required,
 .form-input :invalid {
   box-shadow: none;
@@ -100,6 +92,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
 
