@@ -1,35 +1,44 @@
 .fill-btn {
-    background-size: cover;
-    display: flex;
-    padding: 11px 33px;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    color: white;
-    transition: 1s;
-    transform: skewX(-15deg);
-    border: none;
-    margin-top: 8px;
-    /* box-shadow: 6px 6px  rgba(255, 255, 255, 0.2); */
-    /* text-align: center; */
-  }
-  
-  .fill-btn:focus {
-    outline: none;
-  }
-  
-  .fill-btn:hover {
-    transition: 0.5s;
-    /* box-shadow: 10px 10px 10px #FFF; */
-  }
-  
-  .btn-span {
-    transform: skewX(15deg);
-    /* text-align: center; */
-    margin: auto;
-  }
-/* 
-  .outline-btn{
-    border-image: ;
-  } */
-  
+  background-size: cover;
+  display: flex;
+  padding: 11px 33px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: white;
+  transition: 1s;
+  transform: skewX(-15deg);
+  border: none;
+  margin-top: 8px;
+  /* box-shadow: 6px 6px  rgba(255, 255, 255, 0.2); */
+  /* text-align: center; */
+}
+
+.fill-btn:focus {
+  outline: none;
+}
+
+.fill-btn:hover {
+  transition: 0.5s;
+  /* box-shadow: 10px 10px 10px #FFF; */
+}
+
+.outline-btn {
+  border: 4px solid;
+  border-image-slice: 1;
+  text-decoration: none;
+  /* border-width: 5px; */
+  border-image-source: url(../../../assets/colorStyle.jpg);
+  font-family: 'Poppins', sans-serif;
+  transform: skewX(-15deg);
+  font-weight: bold;
+  padding: 11px 33px;
+  font-size: 16px;
+  /* background-color: black; */
+}
+
+.btn-span {
+  transform: skewX(15deg);
+  /* text-align: center; */
+  margin: auto;
+}
