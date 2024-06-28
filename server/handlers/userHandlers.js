@@ -48,9 +48,56 @@ const getAllUsers = async (req, res) => {
         res.status(500).send('Internal server error');
     }
 }
+
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { username, name, email, password } = req.body;
+        const hashedPassword = password ? crypto.createHash('sha256').update(password).digest('hex') : undefined;
+
+        const updateFields = { username, name, email };
+        if (hashedPassword) {
+            updateFields.password = hashedPassword;
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, updateFields, { new: true });
+
+        if (updatedUser) {
+            res.status(200).json({ message: "User updated successfully", data: updatedUser });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Error updating user", error });
+    }
+};
+
+const patchUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updateFields = req.body;
+
+        if (updateFields.password) {
+            updateFields.password = crypto.createHash('sha256').update(updateFields.password).digest('hex');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, { $set: updateFields }, { new: true });
+
+        if (updatedUser) {
+            res.status(200).json({ message: "User updated successfully", data: updatedUser });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Error updating user", error });
+    }
+};
+
 const logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logout successful' });
 };
 
 
-module.exports = { createUser, loginUser, logoutUser, getAllUsers };
+module.exports = { createUser, loginUser, logoutUser, getAllUsers, updateUser, patchUser };
