@@ -1,5 +1,6 @@
 import React from "react";
 import MainBg from "../../assets/mainBg.png";
+import NavBar from "../../Components/NavBar";
 
 const Dashboard = () => {
   return (
@@ -8,6 +9,7 @@ const Dashboard = () => {
         className="main min-h-screen ls-content"
         style={{ backgroundImage: `url(${MainBg})` }}
       >
+        <NavBar/>
       </div>
     </>
   );

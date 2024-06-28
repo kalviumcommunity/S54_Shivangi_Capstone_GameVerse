@@ -1,3 +1,22 @@
+@font-face {
+    font-family: OndoBold;
+    src: url(../../assets/fonts/Ondo_Bold.ttf);
+  }
+  @font-face {
+    font-family: OndoMed;
+    src: url(../../assets/fonts/Ondo_Medium.ttf);
+  }
+  @font-face {
+    font-family: OndoReg;
+    src: url(../../assets/fonts//Ondo_Regular.ttf);
+  }
+  
+  @font-face {
+      font-family: Lato;
+      src: url(../../assets/fonts/Lato-Regular.ttf);
+  }
+  
+
 .center-img{
     mix-blend-mode:lighten;
     width: 80%;
