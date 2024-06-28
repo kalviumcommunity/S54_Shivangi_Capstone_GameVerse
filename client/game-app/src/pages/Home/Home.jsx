@@ -49,16 +49,16 @@ const Home = () => {
       </div>
 
       <div className="my-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 justify-center justify-items-center mx-auto max-w-max">
-        <CardDesc imgSrc={ArcCat} itemTitle="Arcade" btnvalue="VIEW ALL" />
-        <CardDesc imgSrc={CardCat} itemTitle="Card" btnvalue="VIEW ALL" />
-        <CardDesc imgSrc={ShootCat} itemTitle="Shooting" btnvalue="VIEW ALL" />
-        <CardDesc imgSrc={RaceCat} itemTitle="Racing" btnvalue="VIEW ALL" />
+        <CardDesc imgSrc={ArcCat} itemTitle="Arcade" btnvalue="VIEW ALL"  btnDest="/login" />
+        <CardDesc imgSrc={CardCat} itemTitle="Card" btnvalue="VIEW ALL"  btnDest="/login" />
+        <CardDesc imgSrc={ShootCat} itemTitle="Shooting" btnvalue="VIEW ALL"  btnDest="/login" />
+        <CardDesc imgSrc={RaceCat} itemTitle="Racing" btnvalue="VIEW ALL"  btnDest="/login" />
         <CardDesc
           imgSrc={MultiCat}
           itemTitle="Multiplayer"
           btnvalue="VIEW ALL"
-        />
-        <CardDesc imgSrc={PuzzCat} itemTitle="Puzzle" btnvalue="VIEW ALL" />
+         btnDest="/login" />
+        <CardDesc imgSrc={PuzzCat} itemTitle="Puzzle" btnvalue="VIEW ALL" btnDest="/login"  />
       </div>
       <img src={PageBreak} className="page-br" alt="Page Break" />
       <div className="mx-auto text-center">

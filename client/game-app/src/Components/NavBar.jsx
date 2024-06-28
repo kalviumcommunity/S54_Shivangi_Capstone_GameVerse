@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../Context/LoginContext.jsx";
 import FullLogo from "../assets/FullLogo.png";
 import HalfLogo from "../assets/HalfLogo.png";
@@ -9,6 +9,19 @@ import "./Styles/NavBarStyles.css";
 
 const NavBar = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div>
@@ -17,8 +30,8 @@ const NavBar = () => {
           <div className="flex-1">
             <Link to="/">
               <img
-                src={FullLogo}
-                style={{ width: "60%", justifySelf: "start" }}
+                src={windowWidth >= 420 ? FullLogo : HalfLogo}
+                style={{ width: "60%", justifySelf: "start"  }}
                 alt="gameverse logo"
               />
             </Link>
@@ -32,7 +45,7 @@ const NavBar = () => {
       ) : (
         <div className="navbar justify-between" style={{ padding: "16px 50px" }}>
           <div className="nav-logo">
-            <img src={HalfLogo} style={{height: '42px'}} alt="" />
+            <img src={HalfLogo} style={{ height: '42px' }} alt="" />
           </div>
           <div
             className="nav-search-bar"
