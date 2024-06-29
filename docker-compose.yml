@@ -7,7 +7,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URI=mongodb+srv://shivangijain:indiA1234@cluster1.i2exfar.mongodb.net/?retryWrites=true&w=majority
+      - MONGO_URI=${MONGO_URI}
     depends_on:
       - client
 
