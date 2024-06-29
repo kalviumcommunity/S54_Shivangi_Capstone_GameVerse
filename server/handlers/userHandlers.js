@@ -8,7 +8,7 @@ const createUser = async (req, res) => {
         const { username, name, email, password } = req.body;
         const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
         const user = await User.find({ $or: [{ username }, { email }] });
-        if (user.length == 0) {
+        if (user.length === 0) {
             const newUser = new User({ username, name, email, password: hashedPassword });
             await newUser.save();
             const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -46,6 +46,21 @@ const getAllUsers = async (req, res) => {
     } catch (error) {
         console.error('Error fetching users:', error);
         res.status(500).send('Internal server error');
+    }
+}
+
+const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id);
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).json({ message: "Error fetching user", error });
     }
 }
 
@@ -99,5 +114,4 @@ const logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logout successful' });
 };
 
-
-module.exports = { createUser, loginUser, logoutUser, getAllUsers, updateUser, patchUser };
+module.exports = { createUser, loginUser, logoutUser, getAllUsers, getUserById, updateUser, patchUser };
