@@ -1,24 +1,82 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const crypto = require('crypto');
-require('dotenv').config({ path: "../.env" });
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
+// Nodemailer transporter
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.WEB_MAILID,
+        pass: process.env.WEB_PASS,
+    },
+});
+
+
+// Handler to create a user
 const createUser = async (req, res) => {
     try {
         const { username, name, email, password } = req.body;
         const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
-        const user = await User.find({ $or: [{ username }, { email }] });
-        if (user.length === 0) {
-            const newUser = new User({ username, name, email, password: hashedPassword });
-            await newUser.save();
-            const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            res.status(201).json({ message: "User created successfully", token, data: newUser });
-        } else {
-            res.status(401).json({ message: "User already exists", data: user });
-        }
+        const newUser = new User({ username, name, email, password: hashedPassword });
+        // Generate OTP and save to user
+        const otp = newUser.generateOTP();
+        // Send OTP to user via email
+        await sendOTPEmail(email, otp);
+
+        await newUser.save();
+
+        const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.status(201).json({ message: "User created successfully", token, data: newUser });
     } catch (error) {
         console.error("Error creating user:", error);
         res.status(500).json({ message: "Error creating user" });
+    }
+};
+
+const verifyOTP = async (req, res) => {
+    try {
+        const { email, otp } = req.body; 
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (user.verifyOTP(otp)) {
+            user.Verify = true;
+            user.Otp = null;
+            await user.save();
+            res.status(200).json({ message: "OTP verified successfully", data: user });
+        } else {
+            res.status(401).json({ message: "Invalid OTP" });
+        }
+    } catch (error) {
+        console.error("Error verifying OTP:", error);
+        res.status(500).json({ message: "Error verifying OTP", error });
+    }
+};
+
+
+// Function to send OTP email
+const sendOTPEmail = async (email, otp) => {
+    try {
+        const mailOptions = {
+            from: process.env.WEB_MAILID,
+            to: email,
+            subject: 'OTP Verification',
+            html: `<p>Your OTP for verification is: <strong>${otp}</strong></p>`,
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log('OTP email sent successfully');
+        // console.log(`OTP email sent to ${email}: ${otp}`);
+    } catch (error) {
+        console.error('Error sending OTP email:', error);
+        throw error;
     }
 };
 
@@ -114,4 +172,4 @@ const logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logout successful' });
 };
 
-module.exports = { createUser, loginUser, logoutUser, getAllUsers, getUserById, updateUser, patchUser };
+module.exports = { createUser, loginUser, logoutUser, getAllUsers, getUserById, updateUser, patchUser, verifyOTP };

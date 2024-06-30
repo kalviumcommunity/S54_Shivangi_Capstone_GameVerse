@@ -7,6 +7,13 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     created_at: { type: Date, default: Date.now },
     last_login: { type: Date },
+    Verify: {
+        type: Boolean,
+        default: false,
+    },
+    Otp: {
+        type: String,
+    },
     friends: [
         {
             user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -32,6 +39,16 @@ const userSchema = new mongoose.Schema({
         }
     }
 });
+
+userSchema.methods.generateOTP = function () {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    this.Otp = otp.toString();
+    return otp;
+};
+
+userSchema.methods.verifyOTP = function (otp) {
+    return this.Otp === otp;
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
