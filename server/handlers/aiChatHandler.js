@@ -1,6 +1,5 @@
 const googleGeminiCall = require("../config/aiConfig")
 
-
 const aiChatHandler = async (req, res) => {
     try {
         const { query } = req.body;

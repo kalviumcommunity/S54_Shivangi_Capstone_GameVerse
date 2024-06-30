@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import "./ChatBot.css";
 
 const Chatbot = () => {
+  const url = import.meta.env.VITE_API_URL;
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
@@ -26,7 +27,7 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3000/genai/chatbot", {
+      const res = await axios.post(`${url}/chatbot`, {
         query,
       });
       setResponse(res.data.response);
@@ -62,7 +63,7 @@ const Chatbot = () => {
       {error && <p className="text-red-500 mt-4">{error}</p>}
       {response && (
         <p className="mt-4">
-          <strong>Response:</strong> <ReactMarkdown>{response}</ReactMarkdown>  
+          <strong>Response:</strong> <ReactMarkdown>{response}</ReactMarkdown>
         </p>
       )}
     </div>
