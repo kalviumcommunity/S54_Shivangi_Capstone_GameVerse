@@ -4,6 +4,7 @@ const connectToDB = require("./config/dbConnection");
 const mongoose = require("mongoose");
 const userRoute = require('./routes/userRoute');
 const gameRoute = require("./routes/gameRoute");
+const chatbotRoute = require("./routes/chatbotRoute")
 
 
 const app = express();
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoute);
 app.use("/api/games", gameRoute)
+app.use("/genai", chatbotRoute)
 
 app.listen(port, () => {
     console.log(`🚀 Server running on PORT: ${port}`);
