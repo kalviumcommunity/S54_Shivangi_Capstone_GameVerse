@@ -27,12 +27,18 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const res = await axios.post(`${url}/chatbot`, {
+      const res = await axios.post(`http://localhost:3000/genai/chatbot`, {
         query,
       });
       setResponse(res.data.response);
     } catch (err) {
-      setError(err.response?.data?.error || "An error occurred.");
+      if (err.response && err.response.status === 429) {
+        // Handle rate limit exceeded error
+        setError("Rate limit exceeded. Please try again later.");
+      } else {
+        // Handle other errors
+        setError(err.response?.data?.error || "An error occurred.");
+      }
     } finally {
       setIsLoading(false);
     }

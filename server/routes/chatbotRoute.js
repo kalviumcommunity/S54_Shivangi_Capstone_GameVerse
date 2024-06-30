@@ -1,9 +1,7 @@
-const express = require("express")
-const chatbotRoute = express.Router()
-// const googleGeminiCall = require("../config/aiConfig")
-const aiChatHandler = require("../handlers/aiChatHandler")
+const express = require("express");
+const router = express.Router();
+const { aiChatHandler, aiChatHandlerLimiter } = require("../handlers/aiChatHandler");
 
+router.post('/chatbot', aiChatHandlerLimiter, aiChatHandler);
 
-chatbotRoute.post("/chatbot", aiChatHandler)
-
-module.exports = chatbotRoute 
+module.exports = router;
