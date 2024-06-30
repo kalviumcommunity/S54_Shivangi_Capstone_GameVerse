@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 .nav-menu-items {
   color: white;
   font-size: 18px;
