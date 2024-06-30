@@ -21,16 +21,22 @@ const createUser = async (req, res) => {
     try {
         const { username, name, email, password } = req.body;
         const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
-        const newUser = new User({ username, name, email, password: hashedPassword });
-        // Generate OTP and save to user
-        const otp = newUser.generateOTP();
-        // Send OTP to user via email
-        await sendOTPEmail(email, otp);
+        const user = await User.find({ $or: [{ username }, { email }] });
+        if (user.length === 0) {
 
-        await newUser.save();
+            const newUser = new User({ username, name, email, password: hashedPassword });
+            // Generate OTP and save to user
+            const otp = newUser.generateOTP();
+            // Send OTP to user via email
+            await sendOTPEmail(email, otp);
 
-        const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(201).json({ message: "User created successfully", token, data: newUser });
+            await newUser.save();
+
+            const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            res.status(201).json({ message: "User created successfully", token, data: newUser });
+        } else {
+            res.status(401).json({ message: "User already exists", data: user });
+        }
     } catch (error) {
         console.error("Error creating user:", error);
         res.status(500).json({ message: "Error creating user" });
@@ -39,7 +45,7 @@ const createUser = async (req, res) => {
 
 const verifyOTP = async (req, res) => {
     try {
-        const { email, otp } = req.body; 
+        const { email, otp } = req.body;
         const user = await User.findOne({ email });
 
         if (!user) {
