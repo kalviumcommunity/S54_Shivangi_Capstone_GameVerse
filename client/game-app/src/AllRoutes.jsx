@@ -10,6 +10,7 @@ import FilledBtn from "./Components/ui/Buttons/FilledBtn";
 import OutlineBtn from "./Components/ui/Buttons/OutlineBtn";
 import AutocompleteSearch from "./Components/Search/AutocompleteSearch";
 import Chatbot from "./pages/ChatBot/ChatBot";
+import AddImage from "./Components/AddImage/AddImage";
 
 const AllRoutes = () => {
   const { isLoggedIn } = useContext(LoginContext);
@@ -17,8 +18,8 @@ const AllRoutes = () => {
     <Routes>
       <Route path="/" element={isLoggedIn ? <Dashboard /> : <Home />} />
       <Route path="/login" element={<LoginSignup />} />
-      <Route path="/chatbot" element={<Chatbot/>} />
-      <Route path="/test" element={<AutocompleteSearch/>} />
+      <Route path="/chatbot" element={<Chatbot />} />
+      <Route path="/test" element={<AddImage />} />
     </Routes>
   );
 };
