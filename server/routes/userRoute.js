@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, loginUser, logoutUser, getAllUsers, updateUser, patchUser } = require('../handlers/userHandlers');
+const { createUser, loginUser, logoutUser, getAllUsers, updateUser, patchUser, verifyOTP } = require('../handlers/userHandlers');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 const userRoute = express.Router();
@@ -10,5 +10,6 @@ userRoute.post("/signup", createUser);
 userRoute.post("/login", loginUser);
 userRoute.put("/:id", updateUser); 
 userRoute.patch("/:id", patchUser);
+userRoute.post('/verify', verifyOTP);
 
 module.exports = userRoute;
