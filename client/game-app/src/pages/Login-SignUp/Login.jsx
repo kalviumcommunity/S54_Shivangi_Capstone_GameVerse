@@ -22,7 +22,7 @@ const Login = () => {
         password,
       });
       // localStorage.setItem("token", response.data.token); // Save token
-      console.log("response.data.token: ", response.data.token);
+      // console.log("response.data.token: ", response.data.token);
       Cookies.set("token", response.data.token, { expires: 7 });
       setIsLoggedIn(true);
       toast.success(response.data.message, {

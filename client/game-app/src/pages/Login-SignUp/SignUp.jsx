@@ -63,7 +63,7 @@ const SignUp = () => {
         email,
         otp,
       });
-      console.log("response.data.token: ", response.data.token);
+      // console.log("response.data.token: ", response.data.token);
       Cookies.set("token", response.data.token, { expires: 7 });
       setIsLoggedIn(true);
       toast.success("OTP verified successfully.", {
