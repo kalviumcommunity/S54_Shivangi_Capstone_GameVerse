@@ -5,6 +5,7 @@ import axios from "../../utils/axiosConfig";
 import { LoginContext } from "../../Context/LoginContext";
 import FilledBtn from "../../Components/ui/Buttons/FilledBtn";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const url = import.meta.env.VITE_API_URL;
@@ -20,7 +21,9 @@ const Login = () => {
         username,
         password,
       });
-      localStorage.setItem("token", response.data.token); // Save token
+      // localStorage.setItem("token", response.data.token); // Save token
+      // console.log("response.data.token: ", response.data.token);
+      Cookies.set("token", response.data.token, { expires: 7 });
       setIsLoggedIn(true);
       toast.success(response.data.message, {
         position: "top-center",

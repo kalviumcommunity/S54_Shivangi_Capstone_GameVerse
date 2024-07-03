@@ -5,6 +5,7 @@ import FilledBtn from "../../Components/ui/Buttons/FilledBtn";
 import { LoginContext } from "../../Context/LoginContext";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 const SignUp = () => {
   const url = import.meta.env.VITE_API_URL;
@@ -58,38 +59,42 @@ const SignUp = () => {
   const handleOTPVerification = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(`${url}/api/users/verify`, { email, otp });
-        localStorage.setItem("token", response.data.token); // Save token
-        setIsLoggedIn(true);
-        toast.success("OTP verified successfully.", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-            onClose: () => {
-                navigate("/");
-            },
-        });
+      const response = await axios.post(`${url}/api/users/verify`, {
+        email,
+        otp,
+      });
+      // console.log("response.data.token: ", response.data.token);
+      Cookies.set("token", response.data.token, { expires: 7 });
+      setIsLoggedIn(true);
+      toast.success("OTP verified successfully.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        onClose: () => {
+          navigate("/");
+        },
+      });
     } catch (error) {
-        console.error("Error:", error);
-        toast.error(error.response.data.message, {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-        });
+      console.error("Error:", error);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
     }
-};
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -119,7 +124,10 @@ const SignUp = () => {
               OTP
             </label>
           </div>
-          <FilledBtn value="VERIFY OTP" styles={{ fontSize: "16px" , margin: "20px auto"}} />
+          <FilledBtn
+            value="VERIFY OTP"
+            styles={{ fontSize: "16px", margin: "20px auto" }}
+          />
         </form>
       ) : (
         <form onSubmit={handleSignUp} className="ls-form">
