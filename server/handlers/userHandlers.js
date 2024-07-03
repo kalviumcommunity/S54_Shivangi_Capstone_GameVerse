@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 // Nodemailer transporter
@@ -20,18 +20,13 @@ const transporter = nodemailer.createTransport({
 const createUser = async (req, res) => {
     try {
         const { username, name, email, password } = req.body;
-        const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.find({ $or: [{ username }, { email }] });
         if (user.length === 0) {
-
             const newUser = new User({ username, name, email, password: hashedPassword });
-            // Generate OTP and save to user
             const otp = newUser.generateOTP();
-            // Send OTP to user via email
             await sendOTPEmail(email, otp);
-
             await newUser.save();
-
             const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.status(201).json({ message: "User created successfully", token, data: newUser });
         } else {
@@ -89,9 +84,8 @@ const sendOTPEmail = async (email, otp) => {
 const loginUser = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
-        const user = await User.findOne({ username, password: hashedPassword });
-        if (user) {
+        const user = await User.findOne({ username });
+        if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.status(200).json({ message: "Login successful", token });
         } else {
