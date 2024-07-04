@@ -8,6 +8,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FilledBtn from "../../Components/ui/Buttons/FilledBtn";
 import GoogleIcon from "../../assets/googleicon.png";
+import app from "../../utils/firebaseConfig.js";
 
 const auth = getAuth(app);
 
