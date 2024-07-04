@@ -7,22 +7,35 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 
+/**
+ * SignUp component for user registration
+ * @returns {JSX.Element} The SignUp component
+ */
 const SignUp = () => {
+  // Import API URL from environment variables
   const url = import.meta.env.VITE_API_URL;
+
+  // Use Context hook to access login state
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+
+  // Use navigate hook from react-router-dom
   const navigate = useNavigate();
 
+  // State variables for form data and OTP mode
   const [formData, setFormData] = useState({
     username: "",
     name: "",
     email: "",
     password: "",
   });
-
   const [isOTPMode, setIsOTPMode] = useState(false);
   const [email, setEmail] = useState(null);
   const [otp, setOtp] = useState("");
 
+  /**
+   * Handler for form submission in signup mode
+   * @param {Event} e - The form submission event
+   */
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
@@ -56,6 +69,10 @@ const SignUp = () => {
     }
   };
 
+  /**
+   * Handler for form submission in OTP verification mode
+   * @param {Event} e - The form submission event
+   */
   const handleOTPVerification = async (e) => {
     e.preventDefault();
     try {
@@ -63,7 +80,6 @@ const SignUp = () => {
         email,
         otp,
       });
-      // console.log("response.data.token: ", response.data.token);
       Cookies.set("token", response.data.token, { expires: 7 });
       setIsLoggedIn(true);
       toast.success("OTP verified successfully.", {
@@ -96,18 +112,28 @@ const SignUp = () => {
     }
   };
 
+  /**
+   * Handler for form input change
+   * @param {Event} e - The input change event
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  /**
+   * Handler for OTP input change
+   * @param {Event} e - The input change event
+   */
   const handleOTPChange = (e) => {
     setOtp(e.target.value);
   };
 
   return (
     <div>
+      {/* Render different forms based on OTP mode */}
       {isOTPMode ? (
+        // Form for OTP verification
         <form onSubmit={handleOTPVerification} className="otp-form">
           <div className="form-fields">
             <input
@@ -130,8 +156,10 @@ const SignUp = () => {
           />
         </form>
       ) : (
+        // Form for signup
         <form onSubmit={handleSignUp} className="ls-form">
           <div className="form-fields">
+            {/* Username Field */}
             <input
               type="text"
               id="username"
@@ -147,6 +175,7 @@ const SignUp = () => {
             </label>
           </div>
           <div className="form-fields">
+            {/* Name Field */}
             <input
               type="text"
               id="name"
@@ -162,6 +191,7 @@ const SignUp = () => {
             </label>
           </div>
           <div className="form-fields">
+            {/* Email Field */}
             <input
               type="email"
               id="email"
@@ -177,6 +207,7 @@ const SignUp = () => {
             </label>
           </div>
           <div className="form-fields">
+            {/* Password Field */}
             <input
               type="password"
               id="password"
@@ -191,6 +222,7 @@ const SignUp = () => {
               Password
             </label>
           </div>
+          {/* Register Btn */}
           <FilledBtn value="REGISTER" styles={{ fontSize: "16px" }} />
         </form>
       )}
