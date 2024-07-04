@@ -4,7 +4,7 @@
 
 .left-image {
   height: 85%;
-  max-height: 85vh;
+  max-height: 90vh;
   z-index: 1;
 }
 
@@ -14,8 +14,8 @@
 
 .ls-right {
   margin-left: -20px;
-  height: 73%;
-  min-height: 70vh;
+  height: 80%;
+  min-height: 75vh;
   width: 30.9%;
   background: rgba(255, 255, 255, 0.101);
   box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.214);
@@ -28,7 +28,7 @@
 .ls-right-res{
   /* margin-left: -20px; */
   height: 73%;
-  min-height: 70vh;
+  min-height: 75vh;
   width: 90%;
   background: rgba(255, 255, 255, 0.101);
   box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.214);

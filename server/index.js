@@ -16,7 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://game-verse-iota.vercel.app'],
+    origin: ['http://localhost:5173', 'https://game-verse-iota.vercel.app', 'game-verse-new.firebaseapp.com'],
     methods: 'GET, POST, PATCH, PUT, DELETE',
     allowedHeaders: 'Content-Type, Authorization, X-Additional-Info',
     credentials: true,

@@ -42,3 +42,8 @@
   /* text-align: center; */
   margin: auto;
 }
+
+.btn-img{
+  height: 24px;
+  margin-right: 10px;
+}

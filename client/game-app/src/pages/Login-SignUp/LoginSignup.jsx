@@ -8,6 +8,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 const LoginSignup = () => {
   const [currPage, setCurrPage] = useState("signup");
@@ -16,7 +17,6 @@ const LoginSignup = () => {
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      console.log("Window width:", window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
@@ -30,12 +30,12 @@ const LoginSignup = () => {
     <div style={{ backgroundImage: `url(${MainBg})` }} className="main">
       <NavBar />
       <div className="main min-h-screen ls-content flex justify-center items-center flex-wrap flex-col md:flex-row">
-        <img 
-          src={LoginBg} 
-          className={windowWidth < 600 ? "left-image-res" : "left-image"} 
+        <img
+          src={LoginBg}
+          className={windowWidth < 600 ? "left-image-res" : "left-image"}
           alt="Login Background"
         />
-        <div className={windowWidth < 786 ? "ls-right-res" : "ls-right"} >
+        <div className={windowWidth < 786 ? "ls-right-res" : "ls-right"}>
           <div className="mt-4">
             <div className="border-b border-gray-200">
               <nav className="-mb-px flex" aria-label="Tabs">
@@ -63,6 +63,7 @@ const LoginSignup = () => {
             </div>
           </div>
           {currPage === "signup" ? <SignUp /> : <Login />}
+          <GoogleSignInButton />
         </div>
       </div>
       <ToastContainer

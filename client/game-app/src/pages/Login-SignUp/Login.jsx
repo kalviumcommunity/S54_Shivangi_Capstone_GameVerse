@@ -36,7 +36,6 @@ const Login = () => {
         theme: "dark",
         transition: Bounce,
         onClose: () => {
-          setIsLoggedIn(true);
           navigate("/");
         },
       });
