@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     created_at: { type: Date, default: Date.now },
     last_login: { type: Date },
+    avatar: { type: String, default: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"},
     Verify: {
         type: Boolean,
         default: false,
