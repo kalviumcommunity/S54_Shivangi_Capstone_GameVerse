@@ -7,24 +7,14 @@ import {
 import "../Styles/NavBarStyles.css";
 import ReactMarkdown from "react-markdown";
 
-/**
- * AutocompleteSearch component for searching gaming categories.
- * Uses the Google Generative AI API to generate suggestions based on user input.
- */
 const AutocompleteSearch = () => {
-  // State variables
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Get the API key from environment variables
   const gemini_key = import.meta.env.VITE_GEMINI_API;
   const genAI = new GoogleGenerativeAI(gemini_key);
 
-  /**
-   * Fetches suggestions from the Generative AI API based on the user's query.
-   * @param {string} query - The user's search query
-   */
   async function fetchSuggestions(query) {
     try {
       setIsLoading(true);
@@ -76,10 +66,6 @@ const AutocompleteSearch = () => {
     }
   }
 
-  /**
-   * Handles changes to the search input and fetches suggestions.
-   * @param {Event} e - The input change event.
-   */
   const handleSearchChange = (e) => {
     const query = e.target.value.trim();
     setSearchQuery(query);
@@ -87,13 +73,12 @@ const AutocompleteSearch = () => {
       fetchSuggestions(query);
     } else {
       setSuggestions([]);
-      setIsLoading(false); 
+      setIsLoading(false); // Ensure isLoading is false when no query is entered
     }
   };
 
   return (
     <div style={{ margin: "20px", maxWidth: "600px" }}>
-      {/* Search input */}
       <div
         className="nav-search-bar"
         style={{
@@ -102,6 +87,9 @@ const AutocompleteSearch = () => {
           color: "white",
           display: "flex",
           alignItems: "center",
+        //   padding: "10px",
+        //   borderRadius: "4px",
+        //   marginBottom: "10px",
         }}
       >
         <svg
@@ -129,9 +117,7 @@ const AutocompleteSearch = () => {
           }}
         />
       </div>
-      {/* Loading indicator */}
       {isLoading && <p style={{ fontSize: "16px" }}>Loading suggestions...</p>}
-      {/* Suggestions */}
       {!isLoading && suggestions.length > 0 && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {suggestions.map((suggestion, index) => (
@@ -149,7 +135,6 @@ const AutocompleteSearch = () => {
           ))}
         </ul>
       )}
-      {/* No suggestions message */}
       {!isLoading && suggestions.length === 0 && searchQuery.trim() !== "" && (
         <p style={{ fontSize: "16px" }}>No suggestions found.</p>
       )}
