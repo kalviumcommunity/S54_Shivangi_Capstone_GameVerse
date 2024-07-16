@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 
 const Login = () => {
   const url = import.meta.env.VITE_API_URL;
-  const { setIsLoggedIn } = useContext(LoginContext);
+  const { setIsLoggedIn, setCurrUser } = useContext(LoginContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -22,9 +22,13 @@ const Login = () => {
         password,
       });
       // localStorage.setItem("token", response.data.token); // Save token
-      // console.log("response.data.token: ", response.data.token);
-      Cookies.set("token", response.data.token, { expires: 7 });
-      setIsLoggedIn(true);
+      console.log("response: ", response);
+      Cookies.set("token", response.data.token, { expires: 7, path: "/" });
+      Cookies.set("user", JSON.stringify(response.data.data), {
+        expires: 7,
+        path: "/",
+      });
+      setCurrUser(response.data.data);
       toast.success(response.data.message, {
         position: "top-center",
         autoClose: 3000,
@@ -36,6 +40,7 @@ const Login = () => {
         theme: "dark",
         transition: Bounce,
         onClose: () => {
+          setIsLoggedIn(true);
           navigate("/");
         },
       });
@@ -92,23 +97,10 @@ const Login = () => {
           <FilledBtn
             type="submit"
             value="LOGIN"
-            styles={{ fontSize: "16px" }}
+            styles={{ fontSize: "16px", marginTop: "8px" }}
           />
         </form>
       </div>
-      {/* <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      /> */}
     </>
   );
 };

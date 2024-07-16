@@ -1,29 +1,16 @@
-import React, { useContext, useEffect, useState } from "react"; 
+import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../Context/LoginContext.jsx";
 import FullLogo from "../assets/FullLogo.png";
 import HalfLogo from "../assets/HalfLogo.png";
 import Avatar from "../assets/Avatar.png";
 import FilledBtn from "./ui/Buttons/FilledBtn.jsx";
-import {useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Styles/NavBarStyles.css";
 
 const NavBar = () => {
-  const { isLoggedIn, setIsLoggedIn, logout } = useContext(LoginContext);
+  const { isLoggedIn, logout, currUser } = useContext(LoginContext);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
-
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const handleLogout = () => {
     logout();
@@ -92,7 +79,7 @@ const NavBar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="User profile picture" src={Avatar} />
+                <img alt="User profile picture" src={currUser?.avatar} />
               </div>
             </div>
             <ul

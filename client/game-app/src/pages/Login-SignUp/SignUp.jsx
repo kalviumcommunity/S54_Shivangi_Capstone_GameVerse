@@ -9,7 +9,8 @@ import Cookies from "js-cookie";
 
 const SignUp = () => {
   const url = import.meta.env.VITE_API_URL;
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn, setIsLoggedIn, currUser, setCurrUser } =
+    useContext(LoginContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -63,9 +64,12 @@ const SignUp = () => {
         email,
         otp,
       });
-      // console.log("response.data.token: ", response.data.token);
-      Cookies.set("token", response.data.token, { expires: 7 });
-      setIsLoggedIn(true);
+      Cookies.set("token", response.data.token, { expires: 7, path: "/" });
+      Cookies.set("user", JSON.stringify(response.data.data), {
+        expires: 7,
+        path: "/",
+      });
+      setCurrUser(response.data.data);
       toast.success("OTP verified successfully.", {
         position: "top-center",
         autoClose: 3000,
@@ -77,6 +81,7 @@ const SignUp = () => {
         theme: "dark",
         transition: Bounce,
         onClose: () => {
+          setIsLoggedIn(true);
           navigate("/");
         },
       });
@@ -191,7 +196,10 @@ const SignUp = () => {
               Password
             </label>
           </div>
-          <FilledBtn value="REGISTER" styles={{ fontSize: "16px" }} />
+          <FilledBtn
+            value="REGISTER"
+            styles={{ fontSize: "16px", marginTop: "8px" }}
+          />
         </form>
       )}
     </div>

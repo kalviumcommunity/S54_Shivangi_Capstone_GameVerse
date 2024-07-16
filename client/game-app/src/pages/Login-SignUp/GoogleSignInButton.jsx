@@ -15,7 +15,7 @@ const auth = getAuth(app);
 const GoogleSignInButton = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useContext(LoginContext);
+  const { setIsLoggedIn, setCurrUser, currUser } = useContext(LoginContext);
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -27,15 +27,24 @@ const GoogleSignInButton = () => {
         email: result.user.email,
         password: result.user.uid,
         avatar: result.user.photoURL,
+        Verify: true,
       };
-      const response = await axios.post(`${apiUrl}/api/users/google-auth`, userData);
-      Cookies.set("token", response.data.token, { expires: 7 });
-      setIsLoggedIn(true);
+      const response = await axios.post(
+        `${apiUrl}/api/users/google-auth`,
+        userData
+      );
+      Cookies.set("token", response.data.token, { expires: 7, path: "/" });
+      Cookies.set("user", JSON.stringify(response.data.data), {
+        expires: 7,
+        path: "/",
+      });
+      setCurrUser(response.data.data);
       toast.success(response.data.message, {
         autoClose: 3000,
         closeOnClick: true,
         onClose: () => {
           navigate("/");
+          setIsLoggedIn(true);
         },
       });
     } catch (error) {
