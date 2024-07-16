@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MainBg from "../../assets/mainBg.png";
 import LoginBg from "../../assets/LoginImg.png";
 import "./LoginSignUpStyles.css";
@@ -9,22 +9,11 @@ import SignUp from "./SignUp";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GoogleSignInButton from "./GoogleSignInButton";
+import { WindowWidthContext } from "../../Context/WindowWidthContext";
 
 const LoginSignup = () => {
   const [currPage, setCurrPage] = useState("signup");
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const windowWidth = useContext(WindowWidthContext);
 
   return (
     <div style={{ backgroundImage: `url(${MainBg})` }} className="main">

@@ -1,40 +1,48 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
-import Cookies from 'js-cookie';
-
+import React, { createContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 export const LoginContext = createContext();
 
 const LoginProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const token = Cookies.get("token");
+    return token ? true : false;
+  });
+  const [currUser, setCurrUser] = useState(null);
 
-    useEffect(() => {
-        const token = Cookies.get('token');
-        if (token) {
-            try {
-                const decodedToken = jwtDecode(token);
-                const currentTime = Date.now() / 1000;
-                if (decodedToken.exp > currentTime) {
-                    setIsLoggedIn(true);
-                } else {
-                    Cookies.remove('token');
-                }
-            } catch (error) {
-                console.log(error);
-            }
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const user = Cookies.get("user");
+
+    if (token && user) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp > currentTime) {
+          setIsLoggedIn(true);
+          setCurrUser(JSON.parse(user));
         }
-    }, []);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
 
-    const logout = () => {
-        Cookies.remove('token');
-        setIsLoggedIn(false);
-    };
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("user");
+    setIsLoggedIn(false);
+    setCurrUser(null);
+  };
 
-    return (
-        <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn, logout }}>
-            {children}
-        </LoginContext.Provider>
-    );
+  return (
+    <LoginContext.Provider
+      value={{ isLoggedIn, setIsLoggedIn, currUser, setCurrUser, logout }}
+    >
+      {children}
+    </LoginContext.Provider>
+  );
 };
 
 export default LoginProvider;

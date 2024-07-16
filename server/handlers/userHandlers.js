@@ -87,7 +87,7 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({ username });
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            res.status(200).json({ message: "Login successful", token });
+            res.status(200).json({ message: "Login successful", token, data: user });
         } else {
             res.status(401).json({ message: "Invalid username or password" });
         }
@@ -98,11 +98,11 @@ const loginUser = async (req, res) => {
 };
 
 const getInWithGoogle = async (req, res) => {
-    let { username, name, email, password, avatar } = req.body;
+    let { username, name, email, password, avatar, Verify } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.find({ $or: [{ username }, { email }] });
     if (user.length === 0) {
-        const newUser = new User({ username, name, email, password: hashedPassword, avatar });
+        const newUser = new User({ username, name, email, password: hashedPassword, avatar, Verify: Verify || false });
         await newUser.save()
         const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ message: "User created successfully", token, data: newUser });
@@ -110,7 +110,7 @@ const getInWithGoogle = async (req, res) => {
         const user = await User.findOne({ username });
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            res.status(200).json({ message: "Login successful", token });
+            res.status(200).json({ message: "Login successful", token, data: user });
         } else {
             res.status(401).json({ message: "Try logging in using your Username/Password" });
         }
@@ -135,7 +135,7 @@ const getUserById = async (req, res) => {
         const { id } = req.params;
         const user = await User.findById(id);
         if (user) {
-            res.status(200).json(user);
+            res.status(200).json({data: user});
         } else {
             res.status(404).json({ message: "User not found" });
         }

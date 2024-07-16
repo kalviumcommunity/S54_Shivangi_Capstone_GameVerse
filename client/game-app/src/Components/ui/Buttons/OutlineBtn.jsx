@@ -1,7 +1,7 @@
 import React from "react";
-import "./BtnStyles.css"
+import "./BtnStyles.css";
 
-const OutlineBtn = ({ value }) => {
+const OutlineBtn = ({ value, styles }) => {
   return (
     <div>
       <button type="submit" className="outline-btn">
